@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  record_date: 2021-11-19
+  time: 
+
+two:
+  record_date: 2021-11-19
+  time: 
