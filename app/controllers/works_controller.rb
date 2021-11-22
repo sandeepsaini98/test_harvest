@@ -12,7 +12,9 @@ class WorksController < ApplicationController
 
   # GET /works/new
   def new
-    @work = Work.new
+  
+    @work = Work.new(:record_date => params[:new_date])
+  
   end
 
   # GET /works/1/edit

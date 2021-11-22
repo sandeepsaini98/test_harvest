@@ -1,29 +1,30 @@
 <p id="notice"><%= notice %></p>
-
 <h1>Works</h1>
+  <%= week_calendar do |date| %>
+   <%= date %>
+    <table>
+    <thead>
+    </thead>
+    <tbody>
+      <% @works.each do |work| %>
+        <tr>
+        <% if date == work.record_date%>
+          <td><%= work.time.strftime("%H:%M") %></td>
+          <td><%= link_to 'Show', work %></td>
+          <%
+=begin%>
+ <td><%= link_to 'Edit', edit_work_path(work) %></td> 
+<%
+=end%>
+          <td><%= link_to 'Destroy', work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+       <% end %>
+      <% end %>
+      <%= link_to '+', new_work_path(:new_date => date) ,class: "btn btn-outline-secondary btn-sm" %>
+    </tbody>
+  </table>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Record date</th>
-      <th>Time</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <br>
 
-  <tbody>
-    <% @works.each do |work| %>
-      <tr>
-        <td><%= work.record_date %></td>
-         <td><%= work.time.strftime("%H:%M") %></td>
-        <td><%= link_to 'Show', work %></td>
-        <td><%= link_to 'Edit', edit_work_path(work) %></td>
-        <td><%= link_to 'Destroy', work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Work', new_work_path %>
+ 
