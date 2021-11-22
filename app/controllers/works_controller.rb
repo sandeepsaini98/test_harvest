@@ -16,13 +16,34 @@ class WorksController < ApplicationController
   end
 
   # GET /works/1/edit
-  def edit
+  def edit 
+   
+  end
+
+  def convert_time(var)
+    
+      hr, min = var.split(":")     
+      hr = hr.to_i
+      min = min.to_i
+
+      if min > 60 
+        quotient = min/60 
+        remainder = min % 60 
+      end 
+
+    min = remainder.to_s 
+    hr = hr + quotient
+    hr = hr.to_s 
+
+    @new_time  = "#{hr}:#{min}"
+    @work[:time] = @new_time
   end
 
   # POST /works or /works.json
   def create
     @work = Work.new(work_params)
-
+    @var = work_params[:time]
+    convert_time(@var)
     respond_to do |format|
       if @work.save
         format.html { redirect_to @work, notice: "Work was successfully created." }
