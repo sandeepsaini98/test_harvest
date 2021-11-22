@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rec date:</strong>
+  <%= @task.rec_date %>
+</p>
+
+<p>
+  <strong>Tim:</strong>
+  <%= @task.tim.strftime("%H:%M") %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
