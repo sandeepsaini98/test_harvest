@@ -1,30 +1,28 @@
-<p id="notice"><%= notice %></p>
-<h1>Works</h1>
-  <%= week_calendar do |date| %>
-   <%= date %>
-    <table>
-    <thead>
-    </thead>
-    <tbody>
-      <% @works.each do |work| %>
-        <tr>
-        <% if date == work.record_date%>
-          <td><%= work.time.strftime("%H:%M") %></td>
-          <td><%= link_to 'Show', work %></td>
-          <%
-=begin%>
- <td><%= link_to 'Edit', edit_work_path(work) %></td> 
-<%
-=end%>
-          <td><%= link_to 'Destroy', work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-       <% end %>
-      <% end %>
-      <%= link_to '+', new_work_path(:new_date => date) ,class: "btn btn-outline-secondary btn-sm" %>
-    </tbody>
-  </table>
-  <% end %>
-
-  <br>
-
- 
+<% start_date = Date.today %>
+<% date_range = (start_date.beginning_of_week..start_date.end_of_week).to_a %>
+<div class="d-flex">
+ <% date_range.each do |a| %>
+  <div class="accordion" id="accordion<%= a %>">
+    <div class="card">
+      <div class="card-header" id="heading<%= a %>">
+        <h2 class="mb-0">
+          <button aria-controls="collapse<%= a %>" aria-expanded="true" class="btn btn-link btn-block text-left" data-target="#collapse<%= a %>" data-toggle="collapse" type="button">
+          <%= t('date.abbr_day_names')[a.wday] %>
+          <br>
+           <%= a %> <br>  <%= link_to '+', new_work_path(:new_date => a) ,class: "btn btn-outline-secondary btn-sm" %>
+          </button>
+        </h2>
+      </div>
+      <div aria-labelledby="headingOne" class="collapse" data-parent="#accordion<%= a %>" id="collapse<%= a %>">
+        <div class="card-body"> 
+          <% @works.each do |work| %>
+          <% if a == work.record_date%>
+          <td><%= work.time.strftime("%H:%M") %><br></td>
+          <% end %>
+          <% end %>                 
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>
